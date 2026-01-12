@@ -1,8 +1,7 @@
 package com.practico.online_user_crud_app.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.context.annotation.Primary;
 
@@ -13,10 +12,17 @@ import org.springframework.context.annotation.Primary;
 public class User {
 
     @Id
-    private long id;
-    private String name;
-    private byte age;
-    private double salary;
-    private String city;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String userName;
+    private String email;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_id", referencedColumnName = "profileId")
+    private Profile profile;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "addressId")
+    private Address address;
+
 
 }
